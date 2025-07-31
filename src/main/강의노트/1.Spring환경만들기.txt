@@ -1,0 +1,37 @@
+1. IntelliJ 실행
+2. [ 새 프로젝트 ]
+	1.[JAVA] 프로젝트 선택
+		1. 이름 : tj2025A_web1(아무거나)
+		2. 위치 : ~\Desktop(아무곳이나)
+			-> Git 저장소 생성 [x]체크안함
+		3. 시스템빌드 : Gradle
+		4. JDK : 17
+	5. Gradle : Groovy
+	[생성]
+
+3. Gradle 프로젝트 폴더구조
+	.idea폴더             : 인텔리제이 세팅 파일
+	.src폴더              : (개발자가 작성한) 코드 파일
+	-> main폴더
+	-> -> java폴더        : 백엔드 위주 파일
+	-> -> resources폴더   : 프론트엔드 , 부가파일 등등
+	build.gradle 파일     : 프로젝트내 라이브러리(남이만든코드들) 세팅 파일
+
+4. 그레이들 환경에서 Spring 설치
+	0. 접속 : https://start.spring.io/
+	--왼쪽 화면--
+	1. project : Gradle - Groovy
+	2. Language : java
+	3. Spring Boot : 3.5.4(강의기준)
+	4. Project Metadata : 프로젝트 부가 정보[기본값/생략]
+	5. Packaging : Jar
+	6. Java: 17
+	--오른쪽 화면--
+	7.  Dependencies( 프로젝트에 설치할 라이브러리 )
+		1. [ Add dependencies... ] 클릭
+		2-1. mysql 검색후 --> [MySQL Driver SQL] 선택
+		2-2. Spring 검색후 --> [Spring Web Web ] 선택
+    --하단에 화면--
+	8. [ EXPLORE ] 클릭
+		1. build.gradle 코드 복사후 내 프로젝트내 'build.gradle' 파일에 붙여넣기
+		2. 오른쪽 상단에 코끼리(아이콘)새로고침(ctrl+shift+o) 클릭 후
