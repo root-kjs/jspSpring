@@ -19,22 +19,22 @@ public class RestController1 {
         // 3. ( 크롬에 추가 )
         // 4. 크롬 상단에 주소입력창 오른쪽에 즐겨찾이 아이콘 옆에 조각(아이콘) 클릭하면 'Talend API Tester' 클릭
     // 1) 등록 : CREATE -> @PostMapping
-    @PostMapping    // Talend API : [METHOD] GET , [Scheme] : http://localhost:8080 , 주의할점 :https 가 아닌 http
+    @PostMapping        // Talend API : [METHOD] POST , [Scheme] : http://localhost:8080 , 주의할점 :https 가 아닌 http
     public void 등록하기() {
         System.out.println("RestController1.등록하기"); // soutm 자동완성
     } // m end
     // 2) 조회 : READ -> @GetMapping
-    @GetMapping     // Talend API : [METHOD] GET , [Scheme] : http://localhost:8080 , 주의할점 :https 가 아닌 http
+    @GetMapping         // Talend API : [METHOD] GET , [Scheme] : http://localhost:8080
     public void 조회하기(){
         System.out.println("RestController1.조회하기");
     } // m end
     // 3) 수정 : UPDATE -> @PutMapping
-    @PutMapping     // Talend API : [METHOD] GET , [Scheme] : http://localhost:8080 , 주의할점 :https 가 아닌 http
+    @PutMapping         // Talend API : [METHOD] PUT , [Scheme] : http://localhost:8080
     public void 수정하기(){
         System.out.println("RestController1.수정하기");
     }
     // 4) 삭제 : DELETE -> @DeleteMapping
-    @DeleteMapping      // Talend API : [METHOD] GET , [Scheme] : http://localhost:8080 , 주의할점 :https 가 아닌 http
+    @DeleteMapping      // Talend API : [METHOD] DELETE , [Scheme] : http://localhost:8080
     public void 삭제하기(){
         System.out.println("RestController1.삭제하기");
     }
