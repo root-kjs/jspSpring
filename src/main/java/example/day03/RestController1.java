@@ -71,13 +71,41 @@ public class RestController1 {
     @DeleteMapping("/day03/param4")
     // http://localhost:8080/day03/param4?name=유재석&age=40
     // ++ DTO 에 자동 매핑 하기 위해서는 DTO 에도 name 과 age 멤버변수가 존재 해야한다.+생성자+setter
-    public int method5( @RequestParam TaskDto taskDto ){
-        // @RequestParam : DTO내 동일한 멤버변수와 생성자가 구성된 상태일때
+    public int method5(  @ModelAttribute TaskDto taskDto ){
         // new TaskDto() 생략해도 자동으로 생성된다.
         System.out.println("RestController1.method5");
         System.out.println("taskDto = " + taskDto);
         return 3;
     }
+    /*
+    * 1) 쿼리스트링이란 ? URL경로상의 매개변수 표현 , 매개변수 노출O , 보안 위험 ,  URL?매개변수=값&매개변수=값
+    * 2) BODY(본문)이란 ? HTTP본문에 매개변수 표현 , 매개변수 노출X , 보안 안전 , POST/PUT 에서 JSON타입으로 객체 지원
+
+                    @RequestParam                           vs        @ModelAttribute                           vs    @RequestBody
+    역할            단일 파라미터에 변수 바인딩                           복수 파라미터에 객체 바인딩                         본문(body) 객체 바인딩
+    생략기준         변수명이 일치할경우(쿼리스트링의매개변수명)             DTO 타입일때 기본적용(+생성자,+Setter)              DTO
+    주요타입         기본형:int/String/List/Map                         DTO(개발자가만든객체)                              DTO
+    처리가능요청     쿼리스트링, <form:첨부파일x>                         쿼리스트링,<form:첨부파일o>                        본문(body)
+    HTTP메소드      GET/POST/PUT/DELETE                                GET/POST/PUT/DELETE                             POST/PUT
+
+    */
+
+    @PostMapping("/day03/param5")
+    // Talend API : [Method] Post , [Scheme] http://localhost:8080/day03/param5
+    //              [HEADERS] JSON  [BODY] { "name" : "유재석" , "age" : "40" }
+    public boolean method6( @RequestBody TaskDto taskDto ){
+        System.out.println("RestController1.method6");
+        System.out.println("taskDto = " + taskDto);
+        return true;// 임의값
+    }
+
+    @PutMapping("/day03/param6")
+    public int method7( @RequestBody Map<String,String> map ){
+        System.out.println("RestController1.method7");
+        System.out.println("map = " + map);
+        return 3;
+    }
+
 
 } // class end
 
