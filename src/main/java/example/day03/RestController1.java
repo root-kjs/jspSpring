@@ -81,10 +81,10 @@ public class RestController1 {
     * 1) 쿼리스트링이란 ? URL경로상의 매개변수 표현 , 매개변수 노출O , 보안 위험 ,  URL?매개변수=값&매개변수=값
     * 2) BODY(본문)이란 ? HTTP본문에 매개변수 표현 , 매개변수 노출X , 보안 안전 , POST/PUT 에서 JSON타입으로 객체 지원
 
-                    @RequestParam                           vs        @ModelAttribute                           vs    @RequestBody
+                    @RequestParam                           vs        @ModelAttribute                               @RequestBody
     역할            단일 파라미터에 변수 바인딩                           복수 파라미터에 객체 바인딩                         본문(body) 객체 바인딩
     생략기준         변수명이 일치할경우(쿼리스트링의매개변수명)             DTO 타입일때 기본적용(+생성자,+Setter)              DTO
-    주요타입         기본형:int/String/List/Map                         DTO(개발자가만든객체)                              DTO
+    주요타입         기본형:int/String/List/Map                         DTO(개발자가만든객체)                              DTO ( JSON ) , List/Map
     처리가능요청     쿼리스트링, <form:첨부파일x>                         쿼리스트링,<form:첨부파일o>                        본문(body)
     HTTP메소드      GET/POST/PUT/DELETE                                GET/POST/PUT/DELETE                             POST/PUT
 
