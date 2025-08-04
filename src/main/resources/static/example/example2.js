@@ -5,12 +5,13 @@ console.log('example2.js open'); // **HTML에 JS 파일 연동 확인**
 // (1) 
 const func1 = ( ) => { console.log( 'func1 exe');
     // * fetch 이용한 스프링 Controller 와 통신하기  , GET 방식은 생략가능
-    fetch( "http://localhost:8080/day04/exam1" , { method : "GET"} );
+    // fetch( "http://localhost:8080/day04/exam1" , { method : "GET"} );
+    fetch( "/day04/exam1" , { method : "GET"} );
 } // func end 
 
 // (2) 
 const func2 = ( ) => { console.log( 'func2 exe');
-    fetch( "http://localhost:8080/day04/exam2" , { method : "POST" }  );
+    fetch( "/day04/exam2" , { method : "POST" }  );
 } // func end 
 
 // (3)
