@@ -8,11 +8,24 @@
     1. 정의 : JS 에서 제공하는 내장 (통신) 함수
     2. 역할 : HTTP 요청을 보내고 응답을 비동기적으로 처리 함수
     3. 사용법
-        [ 비동기 방법 ]
-        fetch( url , option )
-            .then( response => response.json() )
-            .then( data => { } )
-            .catch( error => { } )
+        [ 비동기 방법 ] : then 이용한 체인 형식 , 실행순서 보장안됨.
+        () => {
+            fetch( url , option )
+                .then( response => response.json() )
+                .then( data => { } )
+                .catch( error => { } )
+        }
+
+        [ 동기 방법 ] : async/await 이용한 동기 형식 , *권장*:실행순서 보장됨.
+        async () => {
+            try{
+                const response = await fetch( url , option );
+                const data = await response.json();
+            }catch( error ){
+                console.log( error );
+            }
+        }
+
     4.
         - url : Spring프로젝트내 통신할 controller 의 @XXXmapping 에서 정의된 URL
             주로 get/delete queryString : `url ? param1 = ${value1} & param2 = ${value}`
