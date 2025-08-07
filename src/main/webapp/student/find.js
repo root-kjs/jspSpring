@@ -27,7 +27,7 @@ const find = async ( ) => { // async ( ) => {} : 동기화 함수
     // 3. 출력 : .innerHTML
     studentTbody.innerHTML = html;
 } // func end 
-find() ; // JS 실행시 최초 1번 자동 함수 호출 
+find() ; // ************* JS 실행시 최초 1번 자동 함수 호출********* 
 
 
 
