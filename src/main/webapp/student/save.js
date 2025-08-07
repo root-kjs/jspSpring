@@ -13,7 +13,7 @@ const save = async () => {
     const sname = snameInput.value;
     const skor = skorInput.value;
     const smath = smathInput.value;
-    // 2. 입력받은 값을 객체화  , 속성명과 속성값변수명이 같으면 생략가능
+    // 2. 입력받은 값을 객체화  , 속성명과 속성값변수명이 같으면 *둘중 하나 생략*가능
     const object = { sname : sname , skor : skor , smath : smath }
     // 3. fetch option , get/delete vs post/put
     const option = {
