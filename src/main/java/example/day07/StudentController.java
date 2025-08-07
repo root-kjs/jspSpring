@@ -12,6 +12,8 @@ import java.util.List;
 @RequestMapping("/student")
 // @RequestMapping( "/URL" ) : 지정한 클래스내 모든 메소드들의 공통 url
 public class StudentController {
+    // 0. DAO 싱글톤 불러오기
+    private StudentDao studentDao = StudentDao.getInstance();
     // 1. 저장
     @PostMapping("/save") // localhost:8080/student/save
     // @PostMapping : HTTP 요청 중에 method 가 *Post* 인 요청 매핑
@@ -20,7 +22,9 @@ public class StudentController {
         // body : { "sname" : "유재석" , "skor" : "100" , "smath" : "90" }
         System.out.println("StudentController.save"); // soutm
         System.out.println("studentDto = " + studentDto);
-        return false; // 임시
+        // -- DAO
+        boolean result = studentDao.save( studentDto );
+        return result;
     }
     // 2. 전체조회
     @GetMapping("/find") // localhost:8080/student/find
@@ -28,6 +32,7 @@ public class StudentController {
     // ("/URL") : HTTP 주소 만들기/정의
     public List<StudentDto> find(){
         System.out.println("StudentController.find");
-        return null; // 임시
+        List<StudentDto> result = studentDao.find();
+        return result;
     }
 }
