@@ -48,6 +48,15 @@ public class BoardController {
         return result;
     }
 
+    // [5] 개별수정
+    @PutMapping("") // localhost:8080/board
+    public boolean boardUpdate( @RequestBody BoardDto boardDto ){
+        System.out.println("BoardController.boardUpdate");
+        System.out.println("boardDto = " + boardDto);
+        boolean result = boardService.boardUpdate( boardDto );
+        return result;
+    }
+
 
 } // CLASS END
 

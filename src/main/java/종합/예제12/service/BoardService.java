@@ -42,6 +42,14 @@ public class BoardService {
         return result;
     }
 
+    // [5] 개별수정
+    public boolean boardUpdate( BoardDto boardDto  ){
+        System.out.println("BoardService.boardUpdate");
+        System.out.println("boardDto = " + boardDto);
+        boolean result = boardDao.boardUpdate( boardDto );
+        return result;
+    }
+
 } // CLASS END
 
 
