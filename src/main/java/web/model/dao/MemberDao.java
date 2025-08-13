@@ -6,6 +6,7 @@ import web.model.dto.MemberDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 
 @Repository // 스프링 컨테이너에 빈 등록
 public class MemberDao extends Dao { // JDBC 연동 상속받기
@@ -49,6 +50,67 @@ public class MemberDao extends Dao { // JDBC 연동 상속받기
         return 0; // 로그인 실패시 0 반환
     }// func end
 
+    // [4] 회원정보 조회 : mno(세션)
+    public MemberDto info( int mno ){
+        try{
+            String sql = "select * from member where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setInt( 1 , mno );
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){
+                MemberDto memberDto  = new MemberDto(); // 패스워드 제외한
+                memberDto.setMno( rs.getInt( "mno" ) );
+                memberDto.setMid( rs.getString( "mid" ) );
+                memberDto.setMname( rs.getString( "mname" ) );
+                memberDto.setMphone( rs.getString( "mphone" ) );
+                memberDto.setMdate( rs.getString( "mdate" ) );
+                return memberDto;
+            }
+        } catch (Exception e) {   System.out.println(e);   }
+        return null;
+    }
+
+    // [5] 특정한 필드/열/컬럼 의 값 중복/존재 확인
+    public boolean check( String type , String data ){
+        try{
+            // String sql = "select * from member where mid = ? ";
+            // String sql = "select * from member where mphone = ? ";
+            String sql = "select * from member where "+type+" = ? "; // + 앞뒤로 띄어쓰기 주의!
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setString( 1 , data );
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){ return true; } // 중복이면 true
+        }catch (Exception e ){ System.out.println(e);   }
+        return false; // 중복이 아니면 false
+    }
+
+    // [6] 회원정보 수정
+    public boolean update( MemberDto memberDto ){
+        try{
+            String sql ="update member set mname=?, mphone=? where mno = ? ";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setString( 1 , memberDto.getMname() );
+            ps.setString( 2 , memberDto.getMphone());
+            ps.setInt( 3, memberDto.getMno() );
+            int count = ps.executeUpdate();
+            return count == 1;
+        } catch (Exception e) { System.out.println(e);  }
+        return false;
+    }
+
+    // [7] 회원비밀번호수정 : 현재 로그인된 회원의 패스워드와 일치하면 패스워드 수정
+    public boolean updatePassword( int mno , Map<String, String > map ){
+        try{
+            String sql = "update member set mpwd = ? where mno =? and mpwd = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString( 1 , map.get("newpwd") ); // 새로운 패스워드 (수정용)
+            ps.setInt( 2, mno );
+            ps.setString( 3 , map.get("oldpwd") ); // 기존 패스워드 (확인용)
+            int count = ps.executeUpdate();
+            return count == 1 ;
+        } catch (Exception e) {   System.out.println(e);   }
+        return false;
+    }
 
 } // class end
 

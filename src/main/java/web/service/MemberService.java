@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
 
+import java.util.Map;
+
 @Service // 스프링 컨테이너(메모리) 빈(객체) 등록
 public class MemberService {
 
@@ -23,6 +25,29 @@ public class MemberService {
         return result;
     }
 
+    // [4] 회원정보조회
+    public MemberDto info( int mno ){
+        MemberDto result = memberDao.info( mno );
+        return result;
+    }
+
+    // [5] 특정한 필드/열/컬럼 의 값 중복/존재 확인
+    public boolean check( String type , String data ){
+        boolean result = memberDao.check( type , data );
+        return result;
+    }
+
+    // [6] 회원정보 수정
+    public boolean update( MemberDto memberDto ){
+        boolean result = memberDao.update( memberDto );
+        return result;
+    }
+
+    // [7] 회원비밀번호수정
+    public boolean updatePassword( int mno , Map<String,String> map ){
+        boolean result = memberDao.updatePassword( mno , map );
+        return result;
+    }
 
 } // class end
 
