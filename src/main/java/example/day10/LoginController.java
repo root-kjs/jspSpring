@@ -35,11 +35,14 @@ public class LoginController {
         HttpSession session  = request.getSession();
         // 2. 세선정보내 원하는 속성명 값 꺼내기 , 개발자 의도와 상관없이 값은 무조건 Object 타입
         Object obj = session.getAttribute("loginMno");
-            if( obj == null ) return false; // 비로그인 상태
+            if( obj == null ) {
+                System.out.println("[[ 비로그인 상태 ]]");// 비로그인 상태
+                return false;
+            }
         // 3. 타입변환 필요
         int loginMno = (int)obj; // 서버톰캣(스프링) 를 재시작 하면 모든 세션정보는 초기화
+        System.out.println("[[ 로그인 상태 ]]");// 로그인 상태
         System.out.println( loginMno );
-
         return true;
     }
 
