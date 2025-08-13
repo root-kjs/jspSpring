@@ -112,6 +112,18 @@ public class MemberDao extends Dao { // JDBC 연동 상속받기
         return false;
     }
 
+    // [8] 회원탈퇴
+    public boolean delete( int mno , String oldpwd ){ // oldpwd(삭제하기전확인용)
+        try{
+            String sql = "delete from member where mno = ? and mpwd = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , mno );
+            ps.setString( 2 , oldpwd );
+            return ps.executeUpdate() == 1;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }
+
 } // class end
 
 

@@ -48,7 +48,11 @@ public class MemberService {
         boolean result = memberDao.updatePassword( mno , map );
         return result;
     }
-
+    // [8] 회원탈퇴
+    public boolean delete( int mno , String oldpwd ){
+        boolean result = memberDao.delete( mno , oldpwd );
+        return result;
+    }
 } // class end
 
 

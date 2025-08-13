@@ -108,6 +108,18 @@ public class MemberController {
         return result;
     }
 
+    // [8] 회원탈퇴
+    @DeleteMapping("/delete")
+    public boolean delete( @RequestParam String oldpwd , HttpSession session ){
+        // 1.매개변수로 받은 요청정보내 세션객체를 확인 해서 없으면 비로그인상태
+        if( session == null || session.getAttribute("loginMno") == null )return false;
+        // 2.
+        int loginMno = (int)session.getAttribute("loginMno");
+        // 3.
+        return memberService.delete( loginMno , oldpwd );
+    }
+
+
 
 
 
