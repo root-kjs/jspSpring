@@ -31,6 +31,8 @@ public class LoginController {
     // 2. 로그인된 정보 확인 : 현재 세션에 저장된 회원정보 확인
     @GetMapping("/info")
     public boolean info(HttpServletRequest request ){
+        // * 테스트
+        System.out.println( request.getHeader("User-Agent") ); // 통신을 요청한 클라이언트(사용자)의 브라우저정보 확인, HTTP Header(통신부가정보)
         // 1. 요청 서블릿에서 세션정보 꺼내기
         HttpSession session  = request.getSession();
         // 2. 세선정보내 원하는 속성명 값 꺼내기 , 개발자 의도와 상관없이 값은 무조건 Object 타입
@@ -44,6 +46,19 @@ public class LoginController {
         System.out.println("[[ 로그인 상태 ]]");// 로그인 상태
         System.out.println( loginMno );
         return true;
+    }
+
+    // 3. 로그아웃 : 세선정보내 속성 제거하기
+    @GetMapping("/logout")
+    public boolean logout( HttpServletRequest request ){
+        //1. 세션 정보 가져오기
+        HttpSession session = request.getSession();
+        // 2. 특정한 속성 제거하기
+        session.removeAttribute("loginMno");
+        // 2. 전체 속성 제거하기
+        // session.invalidate();
+        return true;
+
     }
 
 
