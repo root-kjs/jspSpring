@@ -11,7 +11,7 @@ const myinfo = async() =>{
         const option = { method : "GET"}
         const response = await fetch( "/member/info" , option );
         const data = await response.json();   console.log( data );
-        // **비로그인시 응답자료가 null 이라서 .json() 타입변환 메소드에서 오류 발생해서 catch 로 이동 **
+        // **비로그인시 응답자료가 null 이라서 .json() 타입변환 함수 에서 오류 발생해서 catch 로 이동 **
         // 2. [로그인중]로그인 했을때 정상 통신 fetch
         html += ` <li> <sapn> ${ data.mid } 님 </sapn> </li>
             <li> <a href="/member/info.jsp"> 내정보 </a> </li>
