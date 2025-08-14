@@ -23,7 +23,7 @@
         
         이름 : <input type="text" class="nameInput" id="nameInput"/>        <br/>
         
-        연락처 : <input onkeyup="pwdcheck()" type="text" class="phoneInput" id="phoneInput"/>    <br/>
+        연락처 : <input onkeyup="phonecheck()" type="text" class="phoneInput" id="phoneInput"/>    <br/>
         <div class="phoneCheck"> </div>
 
         <button type="button" onclick="signup()"> 회원가입 </button> <br/>

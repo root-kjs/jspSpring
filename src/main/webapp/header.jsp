@@ -19,8 +19,7 @@
             <li> <a href="#"> 메뉴3 </a> </li>
         </ul>
         <ul id="log-menu"> <!-- 로그인 안했을때 구역 / 로그인 했을때 구역  를 JS 해서 표현 -->
-            <li> <a href="/member/login.jsp"> 로그인 </a></li>
-            <li> <a href="/member/signup.jsp"> 회원가입 </a></li>
+
         </ul>
     </div>
     <!-- JS 가져오기 -->
