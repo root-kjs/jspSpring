@@ -105,6 +105,8 @@ public class MemberController {
         Object obj = session.getAttribute("loginMno");                                  // 3.
         int loginMno = (int)obj;
         boolean result = memberService.updatePassword( loginMno , map );                // 4.
+        // --
+        if( result == true )  session.removeAttribute("loginMno");
         return result;
     }
 
@@ -116,7 +118,10 @@ public class MemberController {
         // 2.
         int loginMno = (int)session.getAttribute("loginMno");
         // 3.
-        return memberService.delete( loginMno , oldpwd );
+        boolean result  = memberService.delete( loginMno , oldpwd );
+        //
+        if( result == true )  session.removeAttribute("loginMno");
+        return result;
     }
 
 
