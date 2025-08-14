@@ -34,7 +34,6 @@ const signup = async() =>{
 const signPass = [ false ]; // 초기값은 실패 , 0인덱스:아이디체크 , 1인덱스 : 연락처체크
 // [2] 아이디중복검사 : 입력할때마다 발동 
 const idcheck = async () =>{
-
     const mid = document.querySelector('.idInput').value;  // 1.  // 2. 
     const idCheck = document.querySelector('.idCheck');
     // 2. 유효성검사1 길이검사 
@@ -44,8 +43,7 @@ const idcheck = async () =>{
         return; // 함수 강제 종료 함으로써 아래 코드는 실행안됨.
     }
     // 2. 유효성검사2 중복검사 , /member/check?type=검사할속성명&data=${검사할데이터}
-    // 3. fetch 실행 
-    try{
+    try{  // 3. fetch 실행 
         const option = { method : "GET" }
         const response = await fetch( `/member/check?type=mid&data=${mid}` , option  );
         const data = await response.json();
@@ -58,5 +56,6 @@ const idcheck = async () =>{
             signPass[0] = true; // 유효성검사 상태 변경
         }
     }catch(error){ console.log( error ) }
-}
+} // func end 
+
 // [3] 연락처중복검사 : 입력할때마다 발동
