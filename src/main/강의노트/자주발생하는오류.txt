@@ -16,3 +16,30 @@
 5) 모든 프로그래밍 언어들은 키워드(미리만들어진단어)로 변수명/함수명/클래스명 안됨.
     1. **JAVA는 키워드 오류 바로 발생**
     2. **JS는 키워드 오류 바로 발생 : CONSOLE확인**
+
+6) 프론트엔드에서 경로 설정 , / 슬래시 주의
+    1. jsp/css/js : webwapp 또는 static 이하 경로 확인
+        http://localhost:8080 (절대경로) vs / (상대경로 )
+        [O] <jsp:include page="http://localhost:8080/header.jsp"></jsp:include>
+        [O] <jsp:include page="/header.jsp"></jsp:include>
+        [X] <jsp:include page="header.jsp"></jsp:include>
+
+    2. fetch : controller 경로 확인
+        [O] fetch( "http://localhost:8080/member/login" )
+        [O] fetch( "/member/login" )
+        [X] fetch( "member/login" )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
