@@ -57,6 +57,6 @@ const idcheck = async () =>{
             idCheck.innerHTML = "사용가능한 아이디 입니다."
             signPass[0] = true; // 유효성검사 상태 변경
         }
-    }catch(error){}
+    }catch(error){ console.log( error ) }
 }
 // [3] 연락처중복검사 : 입력할때마다 발동
