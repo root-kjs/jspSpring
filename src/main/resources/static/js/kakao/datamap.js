@@ -51,7 +51,7 @@ const kakaMap =  async ()=>{
         });
         // (5-2)마커 클릭 이벤트 넣기. //kakao.maps.event.addListener( marker , 'click' , ()=>{})
         kakao.maps.event.addListener( marker , 'click' , ()=>{
-            // (*) 내가 클릭한 마커의 약국 정보를 사이드바(특정html)에 출력하기 
+            // (*) 내가 클릭한 마커의 약국 정보를 사이드바(특정2. html)에 출력하기 
             const sidebar = document.querySelector('#sidebar');
             let html = ` <button type="button" onclick="dataAPI()"> 전체보기 </button>
                         <div id="store">
