@@ -1,3 +1,7 @@
+#container{ 
+    display: flex; /* 하위 요소들 가로 배치 */
+    height: 90vh; /* vh:화면에서는 크기/비율 : 헤더10제외한*/
+}
 #map{ width: 80%; }
 #sidebar{ 
     width: 20%; 
