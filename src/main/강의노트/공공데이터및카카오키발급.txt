@@ -1,0 +1,42 @@
+[ 공공데이터 API 신청 ]
+    1. https://www.data.go.kr/
+    2. 로그인 -> [카카오/네이버 간편로그인 ] 권장 아니면 회원가입진행
+    3. 검색창 "부평구 주유소" 검색 -> "인천광역시 부평구_주유소 현황" 클릭 -> [Open API] 탭 클릭
+    4. https://www.data.go.kr/data/15102672/fileData.do#tab-layer-openapi
+    5. JSON [ 활용신청 ]
+    6. 활용목적 : 연구(논문 등) , 웹개발 테스트중 입니다.
+       이용허락범위 :  [V] 동의합니다. , 체크
+       [ 활용신청 ]
+    7. 마이페이지 -> 데이터 활용 -> Open API -> 활용신청 현황 -> 승인된 API 확인후 클릭
+    8. 개발계정 상세보기
+        [인증키 설정]
+            ApiKeyAuth (apiKey) : 일반 인증키(Encoding) 를 복사하여 붙여넣기
+            ApiKeyAuth2 (apiKey) : 일반 인증키(Decoding) 를 복사하여 붙여넣기
+        [ API 목록 ] 선택후 [ OpenAPI 실행 준비 ] -> [ OpenAPI 호출 ]
+        * OpenAPI 호출후 아래와 같이 request URL 확인한다.
+    예] 강사가 신청한 API요청주소
+    https://api.odcloud.kr/api/15102672/v1/uddi:d26dabc4-e094-463d-a4b1-cab3af66bb6d?page=1&perPage=10&serviceKey=nwPZ%2F9Z3sVtcxGNXxOZfOXwnivybRXYmyoIDyvU%2BVDssxywHNMU2tA55Xa8zvHWK0bninVkiuZAA4550BDqIbQ%3D%3D
+
+[ 카카오 appKey 발급 ]
+    - APP KEY 발급
+    1. https://developers.kakao.com/
+    2. 로그인( 회원가입 ) , 최초 로그인시 부가정보 입력
+    3. 상단 메뉴 -> [앱] 클릭 -> [앱 생성]
+        앱이름 : springweb(아무거나)
+        회사명 : 개발테스트(아무거나)
+        카테고리 : 교육(아무거나)
+        동의여부 체크
+        [생성]
+    5. 생성된 앱 클릭 -> 대시보드 접속
+    6. 사이드바메뉴 -> [앱]->[일반]-> 중간 스크롤 쯤에
+        '앱 키' 확인 가능.  * JS 카카오지도 사용시 에는 'JavaScript 키' 사용한다.
+    7. '플랫폼' Web 주소 등록 -> [Web 플랫폼 등록]
+        http://localhost:8080
+        http://192.168.40.185:8080
+        * 추후에 배포단계에서는 실제 존재하는 도메인 또는 클라우드 ip를 등록한다.
+    8. 사이드바메뉴 -> [카카오맵]
+        사용 설정 -> 활성화(ON) , * 계정마다 카카오지도 1개만 활성화 가능 *
+
+    - KAKAO 지도
+    1. https://apis.map.kakao.com/
+    2. [WEB] 클릭 -> 왼쪽 메뉴 -> [Guide] -> 시작하기
