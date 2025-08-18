@@ -44,5 +44,5 @@
                 즉] return 있는 반복문 , newArray 변수에는 반복되는 return 값이 저장된다.!
 
             - filter문(조건문있음) :      리스트.filter( 변수 => { } );
-                예] let newArray = array.map( value => { return value > 10; }
+                예] let newArray = array.filter( value => { return value > 10; }
                 즉] 조건 만족 하는 return 있는 반복문 , newArray 변수에는 반복되는 *조건에충족한* return 값이 저장된다.!
