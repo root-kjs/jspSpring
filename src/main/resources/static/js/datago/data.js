@@ -10,7 +10,7 @@ const dataAPI2 = async() =>{
     // 2. fetch 
     const option = {
         method : "POST" ,
-        headers : {"Conten2958802827t-Type" : "application/json"} , 
+        headers : {"Content-Type" : "application/json"} , 
         body:JSON.stringify(obj)
     }
     const serviceKey = "nwPZ%2F9Z3sVtcxGNXxOZfOXwnivybRXYmyoIDyvU%2BVDssxywHNMU2tA55Xa8zvHWK0bninVkiuZAA4550BDqIbQ%3D%3D"
@@ -19,7 +19,7 @@ const dataAPI2 = async() =>{
     const data = await response.json(); 
     alert( data.data[0]["tax_type"] ) // 속성명이 특수문자가 포함된 경우 .(접근연산자) 불가능.
 
-} //
+} // func end 
 
 // [1] 인천 부평구 주유소 현황 
 const dataAPI1 = async()=>{
