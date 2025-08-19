@@ -6,6 +6,8 @@ import web.model.dto.ProductDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ProductDao extends Dao {
@@ -40,6 +42,43 @@ public class ProductDao extends Dao {
             return ps.executeUpdate() == 1;
         } catch (Exception e) { System.out.println(e); }
         return false;
+    }
+
+    // [2-1] 전체 제품의 정보 조회
+    public List<ProductDto> getAllProduct(){
+        List<ProductDto> list = new ArrayList<>();
+        try{ String sql = "select * from product";
+            PreparedStatement ps =conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                ProductDto productDto = new ProductDto();
+                productDto.setPno( rs.getInt( "pno") );
+                productDto.setPname( rs.getString( "pname") );
+                productDto.setPcomment( rs.getString( "pcomment") );
+                productDto.setPprice( rs.getInt( "pprice") );
+                productDto.setPdate( rs.getString( "pdate") );
+                productDto.setPlat( rs.getDouble( "plat") );
+                productDto.setPlng( rs.getDouble( "plng") );
+                productDto.setMno( rs.getInt( "mno") );
+                list.add( productDto );
+            }
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }
+
+    // [2-2] 특정한 제품의 제품이미지명 전체 조회
+    public List<String> getProductImages( int pno ){
+        List<String> list = new ArrayList<>();
+        try{ String sql = "select * from productimg where pno = ?";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setInt( 1 , pno );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                String pimgname = rs.getString("pimgname");
+                list.add( pimgname );
+            }
+        } catch (Exception e) { System.out.println(e);  }
+        return list;
     }
 
 } // func end

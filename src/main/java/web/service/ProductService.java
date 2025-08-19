@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import web.model.dao.ProductDao;
 import web.model.dto.ProductDto;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -20,7 +22,28 @@ public class ProductService {
         return productDao.createProductImage( pno ,fileName ); // DB에 제품 이미지 저장
     }
 
+    // [2] 전체 제품 정보+이미지포함 조회
+    public List<ProductDto> getAllProduct(){
+        // 1. 모든 제품의 정보 조회
+        List<ProductDto> productDtoList = productDao.getAllProduct();
+        // 2. 모든 제품의 이미지 조회
+        for( ProductDto productDto : productDtoList ){ // 조회된 모든 제품dto를 반복
+            List<String> images =
+                productDao.getProductImages( productDto.getPno() ); // 특정한 제품의 pno를 이용하여 모든 제품이미지명 조회
+            productDto.setImages( images ); // 조회한 모든 이미지명을 특정한 제품의 dto 포함
+        }
+        // 3. 반환
+        return  productDtoList;
+    }
+
 }
+
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,8 @@ import web.model.dto.ProductDto;
 import web.service.FileService;
 import web.service.ProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -42,7 +44,24 @@ public class ProductController {
     }
 
     //[2] 제품 전체 조회
+    @GetMapping("/list")
+    public List<ProductDto> getAllProduct(){
+        return productService.getAllProduct();
+    }
 
     //[3] 제품 상세 조회
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
