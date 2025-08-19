@@ -30,4 +30,11 @@ public class FileController {
         fileService.fileDownload( fileName , response );
     }
 
+    // [3] 파일삭제
+    @GetMapping("/delete")
+    public boolean fileDelete( @RequestParam String fileName ){
+        boolean result = fileService.fileDelete( fileName );
+        return result;
+    }
+
 } // class end

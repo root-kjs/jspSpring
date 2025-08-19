@@ -91,6 +91,15 @@ public class FileService {
     }
 
     // [3] 파일 삭제
+    public boolean fileDelete( String fileName ){
+        // 1. 삭제할 파일명과 업로드 경로 조합
+        String filePath = uploadPath + fileName;
+        // 2. 만약에 경로에 파일이 존재하면 삭제 후 true
+        File file = new File( filePath );
+        if( file.exists() ){ file.delete(); return true; } // .delete() : 지정한 경로상의 파일 삭제
+        // 2. 아니면 false
+        return false;
+    }
 
 } // func end
 
