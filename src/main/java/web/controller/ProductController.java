@@ -49,7 +49,11 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
-    //[3] 제품 상세 조회
+    // [3] 특정한 제품의 정보 조회
+    @GetMapping("/find")
+    public ProductDto getProduct( @RequestParam int pno ){
+        return productService.getProduct( pno );
+    }
 
 }
 
