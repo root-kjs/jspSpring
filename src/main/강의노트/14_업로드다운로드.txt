@@ -48,7 +48,7 @@
     1. 흐름구조
         1) 자바가 다운로드 받을 파일을 바이트로 가져온다.
         클라이언트 ----- 짱구.jpg 주세요. ----->  서버(자바) ----- 짱구.jpg Input ----> build
-            1. FileInputStream fin = new FileInputStream( 다운로드받을파일경로객체 );
+            1. FileInputStream fin = new FileInputStream( 파일객체 );
             2. long fileSize = file.length();
             3. byte[] bytes = new byte[ (int)fileSize ];
             4. fin.read( bytes );
