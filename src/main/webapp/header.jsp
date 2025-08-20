@@ -18,6 +18,7 @@
             <li> <a href="/kakao/map.jsp"> 카카오지도 </a> </li>
             <li> <a href="/kakao/datamap.jsp"> 데이터지도 </a> </li>
             <li> <a href="/product/create.jsp"> 제품등록 </a> </li>
+            <li> <a href="/product/list.jsp"> 제품보기 </a> </li>
         </ul>
         <ul id="log-menu"> <!-- 로그인 안했을때 구역 / 로그인 했을때 구역  를 JS 해서 표현 -->
 
