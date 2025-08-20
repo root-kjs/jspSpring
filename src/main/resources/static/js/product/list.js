@@ -13,13 +13,11 @@ const getList = async()=>{
 // [2] 카카오지도,(마커클러스터) https://apis.map.kakao.com/web/sample/addClustererClickEvent/
 const getMap = async ()=>{
 
-    // ********************* 현재 사용자의 위치 좌표 가져오기 ************** //
-    const position = await myPosition(); // /js/kakao/positiom.js 파일의 함수 호출 
-    
+
+
     // 1. 지도 생성 
     var map = new kakao.maps.Map(document.getElementById('map'), { 
-    center : new kakao.maps.LatLng( position.coords.latitude , position.coords.longitude ),  level : 8 });
-
+    center : new kakao.maps.LatLng( 37.4905335508 , 126.7244907601 ),  level : 8 });
     // 2. 마커 클러스터러를 생성합니다
     var clusterer = new kakao.maps.MarkerClusterer({
         map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
@@ -50,7 +48,7 @@ const getMap = async ()=>{
 
 // [*] 함수 동기화
 const _init = async()=>{
-    await getList(); // 카카오 맵이 실행되기 전에 제품정보 가져오기 먼저 실행 
+    await getList(); // 카카오 맵이 실행되기 전에 제품정보 가져오기 먼저 실행
     await getMap();
 }
 _init();
