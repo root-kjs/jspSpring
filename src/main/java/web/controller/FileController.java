@@ -15,7 +15,7 @@ public class FileController {
     // POST , http://localhost:8080/file/upload
     // [Headers] Content-Type : multipart/form-data
     // [Body] : form
-    @PostMapping("/upload")
+    @PostMapping("/static/upload")
     public String fileUpload(MultipartFile multipartFile ){
         System.out.println("multipartFile = " + multipartFile);
         System.out.println("FileController.fileUpload");
