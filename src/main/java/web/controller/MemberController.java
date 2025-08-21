@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
 import web.service.MemberService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -124,9 +125,16 @@ public class MemberController {
         return result;
     }
 
+    // [9] 아이디/비밀번호 찾기
+    @GetMapping("/findid")
+    public Map<String , String > findId( @RequestParam Map<String ,String > map ){
+        return memberService.findId( map );
+    }
 
-
-
+    @GetMapping("/findpwd")
+    public Map<String, String > findPwd( @RequestParam Map<String , String > map ){
+        return memberService.findPwd( map );
+    }
 
 } // class end
 

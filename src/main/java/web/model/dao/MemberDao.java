@@ -124,6 +124,32 @@ public class MemberDao extends Dao { // JDBC 연동 상속받기
         return false;
     }
 
+    // [9] 아이디/비밀번호 찾기
+    public String findId( Map<String,String> map ){
+        try{
+            String sql = "select mid from member where mname = ? and mphone = ?";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setString( 1 , map.get("mname") );
+            ps.setString( 2 , map.get("mphone") );
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ) return rs.getString("mid");
+        } catch (Exception e) {  System.out.println(e);}
+        return null;
+    }
+
+    public boolean findPwd( Map<String,String> map ){
+        try{
+            String sql = "update member set mpwd = ? where mid = ? and mphone = ?";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setString( 1 , map.get("mpwd") );
+            ps.setString( 2 , map.get("mid") );
+            ps.setString( 3 , map.get("mphone") );
+            int count = ps.executeUpdate();
+            return count == 1;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }
+
 } // class end
 
 
