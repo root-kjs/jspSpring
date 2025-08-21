@@ -35,6 +35,7 @@
                              headers : { "Content-Type" : "application/json"} ,
                              body : JSON.stringify( data )  }
         - then( 응답객체 => 응답객체.json() ) : 응답객체를 JSON 타입으로 변환
+            * 주의할점 : 자바에서 보내오는 타입이 String 타입 이거나 값이 null 이면 .json() 불가능하다.
         - then( 변환된객체 => { 실행문 } );  : 통신 응답 결과
         - catch( 에러객체 => { 실행문 };     : 통신 에러 발생
 

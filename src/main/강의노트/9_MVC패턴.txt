@@ -21,10 +21,11 @@
 
         2] CONTROLLER : @RestController @Controller
             -> 역할 : [주] HTTP 통신(요청/응답) , 매개변수/반환 타입 관리 변환 , VIEW 와 SERVICE 중계
+            -> 사용자/클라이언트 가 1번의 요청은 하나의 controller 위임
 
         3] SERVICE : @Service
             -> 역할 : 비지니스로직( 기능에 있어서 실질적인 중요 코드)
-            -> CRUD , 데이터 검증 , 연산 , 알고리즘 , *트랜잭션* 등 , SQL 제외한 실질적인 로직
+            -> CRUD , 데이터 검증 , 연산 , 알고리즘 , *트랜잭션* 등 , SQL/HTTP객체 제외한 실질적인 로직
 
         4] Repository : @Repository
             -> 역할 : 저장소( 실질적인 저장소/엔티티 를 조작코드 ) , DAO , ** JPA, myBatis **
