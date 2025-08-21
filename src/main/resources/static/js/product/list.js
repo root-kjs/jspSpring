@@ -13,8 +13,6 @@ const getList = async()=>{
 // [2] 카카오지도,(마커클러스터) https://apis.map.kakao.com/web/sample/addClustererClickEvent/
 const getMap = async ()=>{
 
-
-
     // 1. 지도 생성 
     var map = new kakao.maps.Map(document.getElementById('map'), { 
     center : new kakao.maps.LatLng( 37.4905335508 , 126.7244907601 ),  level : 8 });
@@ -32,6 +30,24 @@ const getMap = async ()=>{
         // 3-2 마커 클릭 이벤트 , kakao.maps.event.addListener( marker , 'click' , ()=>{} )
         kakao.maps.event.addListener( marker , 'click' , ()=>{
             alert( `클릭한 제품명은 : ${ product.pname } ` );
+
+            // ************ 업로드 된 이미지 출력 ***********
+            // 1. 어디에
+            const productDiv = document.querySelector('#productDiv');
+            // 2. 무엇을 , JSP(webapp이하), css/js/img등등(static이하) , java/string(controller)
+            let html = ``;
+                // * 이미지가 없는 경우 기본이미지 만등릭
+                if( product.images.length == 0 ){
+                    html += `<img src="/upload/default.png" />`
+                }else{  // * 이미지 다수일때 반복문을 이용한 여러개 img 마크업 만들기
+                    for( let i = 0 ; i < product.images.length; i++ ){
+                        let img = product.images[i]; // i번째 이미지
+                        html += `<img src="/upload/${img}" />`
+                    }
+                }
+            // 3. 출력
+            productDiv.innerHTML = html;
+
         });
         // 3-3 마커를 반환 
         return marker;

@@ -44,6 +44,19 @@
         2) .getOriginalFilename(); : 첨부파일의 파일명 반환
             - uuid+"_"+multipartFile.getOriginalFilename() : 사용자들의 첨부파일명 중복 제거 위한방법
 
+* JS에서 fetch 로 (첨부파일/대용량)폼 전송
+    1. const form = document.querySelector( 폼식별자명 );    : 일반(텍스트위주)폼
+        * 자바와 통신할 경우 form 마크업내 name 속성명 과 자바의 매개변수(dto/map)들의 속성명이 일치
+        * <input name="pname" />    -------->    class productDto{ String pname }
+    2. const formData = new FormData( form );               : 일반(텍스트위주)폼 --> 데이터(바이트)폼 전환
+        * 기본 폼 속성외 속성 추가 : formData.append( '속성명' , 값 );
+    3. const option = { method : "POST" , body : formData }
+        * 데이터폼 전송시 HTTP content-type 타입은 multipart/form-data 이며 fetch 생략 가능,
+
+* 스프링 서버에 업로드된 이미지를 html 에서 출력
+    - <img src="http://localhost:8080/upload/파일명 "/>
+    - <img src="/upload/파일명" />
+
 *다운로드 구현 방법
     1. 흐름구조
         1) 자바가 다운로드 받을 파일을 바이트로 가져온다.

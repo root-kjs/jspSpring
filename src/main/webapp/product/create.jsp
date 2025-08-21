@@ -17,7 +17,7 @@
             제품명 : <input name="pname" />        <br/>
             제품가격 : <input name="pprice" />     <br/> 
             제품설명 : <textarea name="pcomment"></textarea> <br/>
-            제품이미지 : <input type="file" multiple name="uploads "/> <br/>
+            제품이미지 : <input type="file" multiple name="uploads"/> <br/>
 
             판매위치(카카오지도API) :  <p><em>지도를 클릭해주세요!</em></p> 
             <div id="map" style="width:100%;height:350px;"></div>
