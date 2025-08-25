@@ -1,0 +1,39 @@
+package web.controller;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import web.model.dto.PostDto;
+import web.service.PostService;
+
+@RestController // (1) HTTP 요청/응답 자료 매핑 기술
+@RequestMapping("/post") // (2) HTTP URL 매핑 기술
+@RequiredArgsConstructor // (3) final 변수에 대한 자동 생성자 주입
+public class PostController {
+
+    private final PostService postService; // @RequiredArgsConstructor 사용함으로 @Autowired 생략 한다.
+
+    // [1] 게시물등록
+    @PostMapping("") // method : post , url : localhost:8080/post , body : { "ptitle" : "게시물제목테스트" , "pcontent" : "게시물제목테스트" , "cno" : "1"  }
+    public int writePost( @RequestBody PostDto postDto , HttpSession session ){
+        // 1. 현재 로그인 상태 확인
+        Object login = session.getAttribute("loginMno");
+        // 2. 비로그인이면 등록 실패처리
+        if( login == null  ) return 0;
+        // 3. 로그인이면 현재 로그인한 회원번호를 postDto 대입하기
+        int mno = (int)login;
+        postDto.setMno( mno );
+        // 4. 서비스 호출 하고 응답 반환 하기
+        return postService.writePost( postDto );
+    } // func end
+
+} // class end
+
+
+
+
+
