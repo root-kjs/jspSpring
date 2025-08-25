@@ -3,10 +3,8 @@ package web.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import web.model.dto.PageDto;
 import web.model.dto.PostDto;
 import web.service.PostService;
 
@@ -31,7 +29,28 @@ public class PostController {
         return postService.writePost( postDto );
     } // func end
 
+    // [2] 게시물 전체 조회
+    @GetMapping("")
+    // method : GET   , URL : localhost:8080/post?cno=1&page=1&count=5 , 1번카테고리(뉴스)의 1페이지의 5개 게시물
+    // method : GET   , URL : localhost:8080/post?cno=1&page=2&count=10 , 1번카테고리(뉴스)의 2페이지의 10개 게시물
+    public PageDto findAllPost( @RequestParam( defaultValue = "1") int cno ,
+                                @RequestParam( defaultValue = "1") int page ,
+                                @RequestParam( defaultValue = "5") int count ){
+        // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 없으면 defaultValue 속성으로 기본값 대입 할 수 있다.
+        return postService.findAllPost( cno , page , count );
+    }
+
 } // class end
+
+
+
+
+
+
+
+
+
+
 
 
 

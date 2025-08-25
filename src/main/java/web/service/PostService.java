@@ -30,7 +30,7 @@ public class PostService {
 
     // [2] 게시물 전체조회 *페이징*
     public PageDto findAllPost( int cno , int page , int count ){
-        // cno : 카테고리번호 , page : 현재페이지번호 , count : 페이지당 게시물수
+        // cno : 카테고리번호 , page : 현재페이지번호 , count : 페이지당게시물수
 
         // ******** 1. 페이지별 조회할 시작(인덱스)번호 계산 *************
         /* 페이지당 5개씩 조회 한다는 가정 : 1페이지 -> 0 , 2페이지 -> 5 , 3페이지 10  */

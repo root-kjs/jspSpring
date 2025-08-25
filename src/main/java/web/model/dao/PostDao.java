@@ -44,7 +44,9 @@ public class PostDao extends Dao {
     // [2-2] 카테고리별 전체 게시물 정보 조회
     public List<PostDto> findAll( int cno , int startRow , int count ){
         List<PostDto> list = new ArrayList<>();
-        try{ String sql = "select * from post where cno = ? order by pno desc limit ? , ? ";
+        try{ String sql = "SELECT * FROM post p INNER JOIN member m " +
+                            " ON p.mno = m.mno WHERE p.cno = ?" +
+                            " ORDER BY p.pno DESC LIMIT ? , ? ";
             PreparedStatement ps = conn.prepareStatement( sql );
             ps.setInt( 1 , cno );
             ps.setInt( 2 , startRow );
@@ -52,12 +54,11 @@ public class PostDao extends Dao {
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
                 PostDto postDto = new PostDto();
-                postDto.setMno( rs.getInt("mno") );
-                postDto.setCno( rs.getInt("cno") );
-                postDto.setPcontent( rs.getString("pcontent"));
-                postDto.setPdate( rs.getString("pdate") );
-                postDto.setPview( rs.getInt("pview") );
-                postDto.setPno( rs.getInt( "pno") );
+                postDto.setMno( rs.getInt("mno") );             postDto.setCno( rs.getInt("cno") );
+                postDto.setPcontent( rs.getString("pcontent")); postDto.setPdate( rs.getString("pdate") );
+                postDto.setPview( rs.getInt("pview") );         postDto.setPno( rs.getInt( "pno") );
+                postDto.setPtitle( rs.getString("ptitle"));
+                postDto.setMid( rs.getString( "mid" )); // member 테이블과 join한 결과 mid 호출 가능하다.
                 list.add( postDto );
             }
         } catch (Exception e) {  System.out.println(e);}
