@@ -29,36 +29,31 @@ public class PostService {
     } // func end
 
     // [2] 게시물 전체조회 *페이징*
-    public PageDto findAllPost( int cno , int page , int count ){
-        // cno : 카테고리번호 , page : 현재페이지번호 , count : 페이지당게시물수
-
+    public PageDto findAllPost( int cno , int page , int count , String key , String keyword  ){
         // ******** 1. 페이지별 조회할 시작(인덱스)번호 계산 *************
-        /* 페이지당 5개씩 조회 한다는 가정 : 1페이지 -> 0 , 2페이지 -> 5 , 3페이지 10  */
-        int startRow = ( page -1 ) * count; // 현재페이지-1 하고 페이지당게시물수 곱한다.
-        /* 1페이지 -> 1-1*5 -> 0  ,  2페이지 -> 2-1*5 -> 5   ,  3페이지 -> 3-1*5 -> 10  */
-        /* 예] 네이버증권게시판 : 1페이지 -> 1-1*20 -> 0  ,  2페이지 -> 2-1*20 -> 20   ,  3페이지 -> 3-1*20 -> 30  */
-
-        // ******** 2. 자료의 (게시물총)개수 구하기. 카테고리별 , 이유 : 전체 페이지수 계산하기 *************
-        int totalCount = postDao.getTotalCount( cno );
-        // ******** 3. 전체 페이지수 구하기  *************
-        int totalPage = totalCount % count == 0 ? totalCount/count : totalCount/count + 1 ; // 나머지가 존재하면 +1
-        /* 35개의 정보가 있을때 5개씩 조회한다면 총 페이지수는 몇개 ? 7페이지  */
-        /* 42개의 정보가 있을때 10개씩 조회한다면 총 페이지수는 몇개 ? 4페이지 + 1페이지(나머지2개) => 5페이지 */
-
+        int startRow = ( page -1 ) * count;
+        // ******** 2/3 번만 검색이 있을때 없을때를 나눠서 totalCount 와 postList 구해보자 ************
+        // ******** 2. 자료의 개수 구하기. *************
+        int totalCount;
+        // ******** 3. 자료의 구하기. *************
+        List<PostDto> postList;
+        if( key != null && !key.isEmpty() && keyword != null && !keyword.isEmpty() ){ // (1) 검색일떄
+            // 만약에 key 와 keyword 가 null 아니면서 .isEmpty() : 비어있으면 true 반환 함수 [ !부정문 ]
+            // .(도트/접근)연산자는 변수가 NULL 일때 사용 안된다. ( NullPointerException )
+            totalCount = postDao.getTotalCountSearch( cno , key , keyword );
+            postList = postDao.findAllSearch( cno , startRow , count , key , keyword );
+        }else{  // (2) 검색이 아닐때
+            totalCount = postDao.getTotalCount( cno );
+            postList = postDao.findAll( cno , startRow , count );
+        }
+        // ******** 4. 전체 페이지수 구하기  *************
+        int totalPage = totalCount % count == 0 ? totalCount/count : totalCount/count + 1 ;
+        // ******** 5. 시작버튼 구하기    *************
         int btnCount = 5; // 한 화면에 보여지는 최대 버튼수
-        // ******** 4. 시작버튼 구하기    *************
         int startBtn = ( ( page - 1 ) / btnCount ) * btnCount + 1;
-        // ******** 5. 끝버튼 구하기    *************
+        // ******** 6. 끝버튼 구하기    *************
         int endBtn = startBtn + btnCount - 1 ;
-        if( endBtn > totalPage ) endBtn = totalPage; // 만약에 끝버튼수가 총페이지수 보다 커지면 총페이지수로 끝버튼번호 사용
-        /* 총 페이지수가 13 일때  ,  현재페이지가 3 이면 시작버튼 : 1  , 끝버튼 : 5   */
-        /* 총 페이지수가 13 일때  ,  현재페이지가 7 이면 시작버튼 : 6  , 끝버튼 : 10   */
-        /* 총 페이지수가 13 일때  ,  현재페이지가 12 이면 시작버튼 : 11  , 끝버튼 : 13(마지막페이지수) */
-
-        // ******** 6. 자료 요청 , cno:카테고리번호 , startRow(시작인덱스) , count(페이당게시물수)  *************
-        // SQL 페이징 처리 : LIMIT 시작인덱스 , 개수
-        // 1페이지 : LIMIT 0 , 5     / 2페이지 : LIMIT 5 , 5   / 3페이지 : LIMIT 10 , 5    / 4페이지 : LIMIT 15 , 5
-        List< PostDto > postList = postDao.findAll( cno , startRow , count );
+        if( endBtn > totalPage ) endBtn = totalPage;
 
         // ************* pageDto 구성하기 ***************
         PageDto pageDto = new PageDto();

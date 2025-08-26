@@ -30,12 +30,17 @@ public class PostController {
     } // func end
 
     // [2] 게시물 전체 조회
-    @GetMapping("") // method : GET   , URL : localhost:8080/post?cno=1&page=1&count=5 , 1번카테고리(뉴스)의 1페이지의 5개 게시물
+    @GetMapping("")
+    // 검색이 없을떄 : method : GET , URL : http://localhost:8080/post?cno=1&page=1&count=5 , 1번카테고리(뉴스)의 1페이지의 5개 게시물
+    // 검색이 있을떄 : method : GET , URL : http://localhost:8080/post?cno=1&page=1&count=5&key=ptitle&keyword=ai , 1번카테고리(뉴스)의 1페이지에서 제목의 ai가 포함된  5개 게시물
     public PageDto findAllPost( @RequestParam( defaultValue = "1") int cno ,
                                 @RequestParam( defaultValue = "1") int page ,
-                                @RequestParam( defaultValue = "5") int count ){
+                                @RequestParam( defaultValue = "5" ) int count ,
+                                @RequestParam( required = false ) String key ,
+                                @RequestParam( required = false ) String keyword ){
         // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 없으면 defaultValue 속성으로 기본값 대입 할 수 있다.
-        return postService.findAllPost( cno , page , count );
+        // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 존재하는 조건이 필수가 아닐때 required = false 속성을 사용한다.
+        return postService.findAllPost( cno , page , count , key , keyword );
     }
 } // class end
 
