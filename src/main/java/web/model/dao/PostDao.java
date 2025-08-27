@@ -110,6 +110,81 @@ public class PostDao extends Dao {
         } catch (Exception e) { System.out.println( e ); }
         return list;
     }
+    // [3-1] 게시물 개별 정보 조회
+    public PostDto getPost( int pno ){
+        try {
+            String sql = "select * from post p inner join member m on p.mno = m.mno where pno = ?"; // 로그인 회원번호 inner join
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                PostDto postDto = new PostDto();
+                postDto.setMno( rs.getInt("mno") );             postDto.setCno( rs.getInt("cno") );
+                postDto.setPcontent( rs.getString("pcontent")); postDto.setPdate( rs.getString("pdate") );
+                postDto.setPview( rs.getInt("pview") );         postDto.setPno( rs.getInt( "pno") );
+                postDto.setPtitle( rs.getString("ptitle"));
+                return postDto;
+            }
+        }catch ( Exception e ){
+            System.out.println( e );
+        }
+        return null;
+    }//func end
+
+    // [3-2] 게시물 조회수 증가 +1  ---> 
+    public void incrementView(int pno){
+        try {
+            String sql = "update post set pview = pview + 1 where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pno);
+            ps.executeUpdate(); // void라 리턴 없음
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }//func end
+
+    // [3-3] 개별 게시물 삭제
+//    public boolean deletePost( int mno, int pno ){
+//        try {
+//            String sql = "delete from post where mno =? and pno = ?";
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            ps.setInt(1, mno);
+//            ps.setInt(2, pno);
+//            return ps.executeUpdate() == 1;
+//        }catch ( Exception e ){
+//            System.out.println( e );
+//        }
+//        return false;
+//    }//func end
+
+    public boolean deletePost( int pno ){
+        try {
+            String sql = "delete from post where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pno);
+            return ps.executeUpdate() == 1;
+        }catch ( Exception e ){
+            System.out.println( e );
+        }
+        return false;
+    }//func end
+
+    // [3-4] 개별 게시물 수정
+    public int updatePost( PostDto postDto ){
+        try {
+            String sql = "update post set ptitle = ? , pcontent =?, cno = ? where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, postDto.getPtitle());
+            ps.setString(2, postDto.getPcontent());
+            ps.setInt(3, postDto.getCno());
+            ps.setInt(4, postDto.getPno());
+            int count = ps.executeUpdate();
+            if(count == 1) return postDto.getPno();
+        }catch ( Exception e ){
+            System.out.println( e );
+        }
+        return 0;
+    }//func end
 
 } // class end
 

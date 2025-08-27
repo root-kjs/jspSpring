@@ -8,6 +8,12 @@ import web.model.dto.PageDto;
 import web.model.dto.PostDto;
 import web.service.PostService;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Map;
+
 @RestController // (1) HTTP 요청/응답 자료 매핑 기술
 @RequestMapping("/post") // (2) HTTP URL 매핑 기술
 @RequiredArgsConstructor // (3) final 변수에 대한 자동 생성자 주입
@@ -42,6 +48,73 @@ public class PostController {
         // 만약에 URL 주소상의 지정한 쿼리스트링 매개변수가 존재하는 조건이 필수가 아닐때 required = false 속성을 사용한다.
         return postService.findAllPost( cno , page , count , key , keyword );
     }
+
+    // [3-1] 게시물 개별 정보 조회
+    @GetMapping("/view")
+    public PostDto getPost(@RequestParam int pno, HttpSession session ){
+        // HttpSession : 브라우저마다의(서버 메모리에 저장되는 세션) 별도의 클라이언트(client) 저장소 개념으로 생각할 것
+        // 01. 24시간 내에 1번만 조회수 증가 요청 가능
+            // 1. 세션 내 속성 "viewHistory" 값 가져오기
+            // 세션 내 속성 viewHistory는 사용자의 웹사이트 방문 기록을 저장하고 관리하는 데 사용되는 속성
+            // 이를 통해 개인화된 사용자 경험을 제공하거나, 사용자의 행동을 분석하여 마케팅 전략을 수립하는 데 활용
+            // 예 시 : 사용자가 이전에 본 상품 목록을 보여주거나, 관심 있을 만한 다른 상품을 추천해주는 기능에 활용
+        Object object = session.getAttribute("viewHistory");
+        Map< Integer, String> viewHistory;
+            // 2. viewHistory 존재하지 않으면 viewHistory 생성!
+        if( object == null ){
+            viewHistory = new HashMap<>();
+        }else { // 3. 존재하면 기존 자료를 타입변환한다.
+            viewHistory = (Map< Integer, String>) object;
+        }
+            //4. 오늘 날자를 문자열로 가져옴 {  3: 2025-08-26, 3: 2025-08-27 }
+        String today = LocalDate.now().toString();
+            //5. 현재 게시물을 오늘 날짜로 조합하여 본 기록을 체크
+        String check = viewHistory.get(pno);
+        if ( check == null || !check.equals( today )){
+            //6. 조회수 증가 서비스 호출
+            postService.incrementView( pno );
+            viewHistory.put( pno, today );
+            //7. 세션 속성 업데이트 -- > 브라우저마다 조회수 증가--> 싫다면 ip까지 체크해야 함.
+            session.setAttribute("viewHistory", viewHistory);
+        }
+        // 02. 요청한 사람이(client) 본인이 작성한 글인지 확인
+        PostDto postDto = postService.getPost(pno);
+        Object loginObject = session.getAttribute("loginMno");
+        int loginMno = loginObject == null ? 0 : (int) loginObject;
+        if( postDto.getMno() == loginMno ){
+            postDto.setHost( true );
+        }
+        return postDto;
+       // return postService.getPost(pno);
+    }//func end
+    // [3-2] 게시물 조회수 증가 +1  --->
+//    @PutMapping
+//    public void incrementView( @RequestParam int pno) {
+//        postService.incrementView( pno );
+//    }//func end
+
+
+    // [3-3] 개별 게시물 삭제
+    //@DeleteMapping
+//    public boolean deletePost(@RequestParam int pno, HttpSession session ){
+//        if( session == null || session.getAttribute("loginMno") == null ) return false;
+//        int loginMno = (int) session.getAttribute("loginMno");
+//        boolean result = postService.deletePost( loginMno, pno );
+//        return result;
+//    }//func end
+    @DeleteMapping
+    public boolean deletePost( @RequestParam int pno ){
+        return postService.deletePost( pno );
+
+    }//func end
+
+    // [3-4] 개별 게시물 수정
+    @PutMapping
+    public int updatePost( @RequestBody PostDto postDto){
+        return postService.updatePost( postDto );
+    }//func end
+
+
 } // class end
 
 

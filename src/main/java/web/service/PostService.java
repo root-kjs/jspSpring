@@ -7,6 +7,7 @@ import web.model.dao.PostDao;
 import web.model.dto.PageDto;
 import web.model.dto.PostDto;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Service
@@ -67,6 +68,24 @@ public class PostService {
         return pageDto; // 반환
     }
 
+    // [3-1] 게시물 개별 정보 조회
+    public PostDto getPost( int pno ){
+        return postDao.getPost(pno);
+    }
+    // [3-2] 게시물 조회수 증가 +1  --->
+    public void incrementView(int pno) {
+        postDao.incrementView( pno );
+    }
+
+    // [3-3] 개별 게시물 삭제
+    public boolean deletePost( int pno ){
+        return postDao.deletePost(pno);
+    }//func end
+
+    // [3-4] 개별 게시물 수정
+    public int updatePost( PostDto postDto){
+        return postDao.updatePost( postDto );
+    }//func end
 
 } // class end
 
