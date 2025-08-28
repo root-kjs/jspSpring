@@ -7,7 +7,8 @@ $(document).ready(function() {
     });
 });
 
-console.log( "write.js open");
+const params = new URL( location.href ).searchParams;
+const cno_page = params.get('cno');
 
 const onWrite = async() => {
     const cno = document.querySelector('.cno').value ;
@@ -21,12 +22,13 @@ const onWrite = async() => {
         body : JSON.stringify(obj)
     }
     try{
-        const reponse = await fetch("/post", option);
-        const data = await reponse.json();  //console.log( data );
+        const response = await fetch("/post", option);
+        const data = await response.json();  //console.log( data );
         if( data > 0 ){
-            alert('등록 성공'); 
+            alert('게시글 등록 성공!'); 
+            location.href = `/post/post.jsp?cno=1`;
         }else{
-            alert('등록 실패');
+             alert('게시글 등록 실패');
         }
     }catch(e){
         console.log( e );

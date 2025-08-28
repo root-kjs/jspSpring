@@ -10,6 +10,7 @@ import web.service.PostService;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.fasterxml.jackson.databind.type.LogicalType.Map;
@@ -112,6 +113,22 @@ public class PostController {
     @PutMapping
     public int updatePost( @RequestBody PostDto postDto){
         return postService.updatePost( postDto );
+    }//func end
+
+    // [4-1] 댓글등록
+    @PostMapping("/reply")
+    public int writeReply( @RequestBody Map<String, String> reply, HttpSession session) { 
+        if( session.getAttribute("loginMno") == null ) return 0; // 비로그인이면 실패
+        int loginMno = (int) session.getAttribute("loginMno");
+        reply.put("mno",loginMno+"" ); //String.valueOf(loginMno), String 처리
+
+        return postService.writeReply(reply);
+    }//func end
+
+    // [4-2] 댓글 전체조회
+    @GetMapping("/reply")
+    public List<Map<String, String>> findAllReply(@RequestParam int pno ){
+        return postService.findAllReply(pno);
     }//func end
 
 

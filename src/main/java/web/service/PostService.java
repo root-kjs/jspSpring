@@ -1,14 +1,18 @@
 package web.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dao.PostDao;
 import web.model.dto.PageDto;
 import web.model.dto.PostDto;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor // 롬복제공 : final 변수에 대한 ---(final)생성자 자동-- 제공
@@ -86,6 +90,16 @@ public class PostService {
     public int updatePost( PostDto postDto){
         return postDao.updatePost( postDto );
     }//func end
+
+    // [4-1] 댓글등록
+    public int writeReply(Map<String, String> reply) {
+        return postDao.writeReply(reply);
+    }//func end
+
+    // [4-2] 댓글 전체조회
+    public List<Map<String, String>> findAllReply( int pno ){
+        return postDao.findAllReply(pno);
+    }
 
 } // class end
 

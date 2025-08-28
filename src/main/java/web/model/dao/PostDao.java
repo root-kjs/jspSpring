@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PostDao extends Dao {
@@ -184,6 +186,47 @@ public class PostDao extends Dao {
             System.out.println( e );
         }
         return 0;
+    }//func end
+
+    // [4-1] 댓글등록
+    public int writeReply( Map<String, String> reply ){  // 객체명은 해당 객체의 성격을 나타나게 작명
+        try {
+            String sql = "insert into reply( rcontent, mno, pno ) values(?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS ); // pk값 반환
+            ps.setString(1, reply.get("rcontent")); //map.get("속성명"); --> 속성값 반환
+            ps.setString(2, reply.get("mno"));
+            ps.setString(3, reply.get("pno"));
+            int count = ps.executeUpdate();
+            if(count == 1) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if( rs.next() ) return rs.getInt(1); // pk값 반환
+            }
+        }catch ( Exception e ){
+            System.out.println( e );
+        }
+        return 0;
+    }//func end
+    
+    // [4-2] 댓글 전체조회
+    public List<Map<String, String>> findAllReply( int pno ){
+        List<Map<String, String>> replyList = new ArrayList<>(); // 메소드 전체에서 접근 가능, 변수 유효 범위(Scope)
+        try {
+            String sql ="select * from reply r inner join member m on r.mno = m.mno where pno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next()){
+                Map<String, String> reply = new HashMap<>();
+                reply.put("rcontent", rs.getString("rcontent"));
+                reply.put("rdate", rs.getString("rdate"));
+                reply.put("rno", rs.getString("rno"));
+                reply.put("mid", rs.getString("mid"));
+                replyList.add(reply);
+            }
+        }catch ( Exception e ){
+            System.out.println( e );
+        }
+        return replyList;
     }//func end
 
 } // class end

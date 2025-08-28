@@ -10,6 +10,7 @@ const page = params.get('page') || 1;           // 만약에 page가 존재하�
 const key = params.get('key') || '';            // 만약에 key가 존재하지 않으면 ''
 const keyword = params.get('keyword') || '';
 
+
 // [2] 요청 매개변수를 이용한 fecth 게시물 요청하기 `
 const findAll = async ()=>{         console.log('findAll open');
     try{ // 2-1 : try{ }catch(){ } 예외처리 
@@ -25,7 +26,7 @@ const findAll = async ()=>{         console.log('findAll open');
                 // post <---> postDto{}
                 html += `<tr>
                             <td> ${ post.pno } </td>
-                            <td> ${ post.ptitle } </td>
+                            <td> <a href ="view.jsp?pno=${post.pno}">${ post.ptitle }</a></td>
                             <td> ${ post.mid } </td> 
                             <td> ${ post.pdate } </td>
                             <td> ${ post.pview } </td>
